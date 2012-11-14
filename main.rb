@@ -1,13 +1,12 @@
 require 'active_support/inflector'
 
-file = File.open("C:/Users/hpinto/git/gestorreservas/db/schema.rb", "r")
+file = File.open("C:/Users/1bi/git/gestordereservas/db/schema.rb", "r")
 schema = file.read.split(/create_table/)
 table=Array.new
 schema.each_with_index do |s,i| 
   table<<s.scan(/"(.*)".*\|$/)
   if i!=0 then puts "#{i}. #{table[i][0][0]}" end
 end
-
 i = [(print 'choose model:'), gets.rstrip][1]
 t = table[i.to_i][0][0]
 puts "showing table #{t} fields"
