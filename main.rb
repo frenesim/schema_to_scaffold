@@ -11,12 +11,8 @@ end
 i = [(print 'choose model:'), gets.rstrip][1]
 t = table[i.to_i][0][0]
 puts "showing table #{t} fields"
-puts schema[i.to_i]
-scaffolds_inputs = schema[i.to_i].scan(/t\.(\w+)\s+"([a-z0-9_]+)/)
 scaffold_model_fields = String.new
-scaffolds_inputs.each do |s|
-  scaffold_model_fields << "#{s[1]}:#{s[0]} "
-  #rails generate scaffold HighScore game:string score:integer
-end
+schema[i.to_i].scan(/t\.(\w+)\s+"([a-z0-9_]+)/).each { |s| scaffold_model_fields << "#{s[1]}:#{s[0]} "}
+  
 puts "rails generate scaffold #{t.singularize.camelcase} #{scaffold_model_fields}"
 "NowIsTheTime".underscore.humanize
