@@ -15,4 +15,3 @@ scaffold_model_fields = String.new
 schema[i.to_i].scan(/t\.(\w+)\s+"([a-z0-9_]+)/).each { |s| scaffold_model_fields << "#{s[1]}:#{s[0]} "}
   
 puts "rails generate scaffold #{t.singularize.camelcase} #{scaffold_model_fields}"
-"NowIsTheTime".underscore.humanize
