@@ -19,7 +19,9 @@ The code is very simple and the usage is not friendly but almost.
 9. paste the command in your project
 
 * Nine quick steps that will save you a lot of time
+
 It will give some alerts if your names are not following the rails convention.
+
 read a litle about [rails convention](http://itsignals.cascadia.com.au/?p=7) -- d 
 
 * [.markdown, .mdown, .md](http://daringfireball.net/projects/markdown/) -- `gem install redcarpet` (https://github.com/vmg/redcarpet)
