@@ -1,14 +1,18 @@
 Schema to Scaffold
-===============
+==================
 
-We use this library on GitHub when rendering your README or any other
-rich text file.
+After I cross with rake db:schema:dump I feel that it could do a litle more in my case. So there it is.
 
-Markups
+Usage
 -------
 
-The following markups are supported.  The dependencies listed are required if
-you wish to run the library.
+The code is very simple and the usage is not friendly but almost.
+
+1. download the zip (or copy paste de code) 
+2. save main.rb in a folder.
+3. cd folder
+4. 
+
 
 * [.markdown, .mdown, .md](http://daringfireball.net/projects/markdown/) -- `gem install redcarpet` (https://github.com/vmg/redcarpet)
 * [.textile](http://www.textism.com/tools/textile/) -- `gem install RedCloth`
