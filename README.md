@@ -29,11 +29,14 @@ Contributing
 Want to contribute? Great!
 
 1. Fork it.
-2. Create a branch (`git checkout -b my_markup`)
-3. Commit your changes (`git commit -am "Added Snarkdown"`)
-4. Push to the branch (`git push origin my_markup`)
+2. Create a branch (`git checkout -b my_schema_to_scafold`)
+3. Commit your changes (`git commit -am "Added great stuff"`)
+4. Push to the branch (`git push origin my_schema_to_scafold`)
 5. Open a [Pull Request][1]
 6. Enjoy a refreshing Diet Coke and wait
 
 [1]: http://github.com/frenesim/schema_to_scaffold/pulls
 
+Colaborate
+------------
+if you want to colaborate send me an email please. 
