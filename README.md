@@ -11,7 +11,7 @@ The code is very simple and the usage is not friendly but almost.
 1. download the zip (or copy paste de code) 
 2. save main.rb in a folder.
 3. cd folder
-4. edit the main.rb and change the path to point to your schema.rb  (genereted with the rake db:schema:dump)
+4. edit the main.rb and change the path to point to your schema.rb  (generated with the rake db:schema:dump)
 5. close and save
 6. ruby main.rb 
 7. chose your table
