@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+$:.unshift File.expand_path('../lib', File.dirname(__FILE__))
+require 'schemaffold'
+
+HELP =<<-END_OF_HELP
+Usage: schemafold [OPTION] PATH
+Generate a rails scaffold script for the given schema.rb file
+PATH is the path to the schema.rb file.
+
+OPTIONS:
+  -x     put the rails scaffold script in your clipboard using xclip, type:
+           sudo apt-get install xclip
+         if you don't have it
+
+END_OF_HELP
+
+xclip = ARGV.delete('-x')
+if ARGV[0].nil? or ARGV.delete('-h')
+  puts HELP
+else
+  data = File.open(ARGV[0], 'r') {|f| f.read }
+  until ARGV.empty? do
+    ARGV.shift
+  end
+
+  schema = Schemaffold::Schema.new(data)
+
+  begin
+    schema.check_rails_naming_conventions
+  rescue NotFollowingConventionsError => msg
+    puts msg
+  end
+
+  puts "\nLoaded tables:"
+  schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
+
+  begin
+    print "\nSelect a table: "
+  end while !(table_id = gets.chomp.to_i).is_a?(Fixnum)
+
+  script = Schemaffold.generate_script(schema, table_id)
+  puts "\n#{script}"
+  if xclip
+    puts("\n(copied to your clipboard)")
+    exec("echo '#{script}' | xclip -selection c")
+  end
+end
