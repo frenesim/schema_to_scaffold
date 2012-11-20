@@ -1,11 +1,28 @@
 require 'active_support/inflector'
+require './lib/schemaffold'
 
-schema = File.open("C:/Users/hpinto/git/gestorreservas/db/schema.rb", "r") {|f| f.read.split(/create_/) }
-schema.shift
-tables = schema.map { |s| s.scan(/table "(.*)"/).first }
-tables.each_with_index{|tbl,i|  puts "#{i}. #{tbl.first}"}
-i = [(print 'Select a Table:'), gets.rstrip.to_i][1]
-t = tables[i].first
-scaffold_model_fields = schema[i].scan(/t\.(\w+)\s+"([a-z0-9_]+)/).inject("") { |str, s| str << "#{s[1]}:#{s[0]} "}
-if t==t.singularize || t==t.camelcase; puts"";puts"You should change the name of the table according with rails convention" end 
-puts "rails generate scaffold #{t.singularize.camelize} #{scaffold_model_fields}"
+homes = ["HOME", "HOMEPATH"]
+realHome = homes.detect {|h| ENV[h] != nil}
+if not realHome
+   puts "Could not find home directory"
+end
+
+path = "#{ENV[realHome]}/git/gestorreservas/db/schema.rb".gsub(/\\/,'/') 
+data = File.open(path, 'r') {|f| f.read }
+schema = Schemaffold::Schema.new(data)
+  
+  begin
+    schema.check_rails_naming_conventions
+  rescue NotFollowingConventionsError => msg
+    puts msg
+  end
+  
+  puts "\nLoaded tables:"
+  schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
+
+  begin
+    print "\nSelect a table: "
+  end while !(table_id = gets.chomp.to_i).is_a?(Fixnum)
+
+  script = Schemaffold.generate_script(schema, table_id)
+  puts "\n#{script}"
