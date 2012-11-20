@@ -1,23 +1,36 @@
 require 'active_support/inflector'
+require './lib/schemaffold'
 require 'find'
 
-paths =  Array.new
-Find.find('C:/Users/hpinto/git/') do |path|
-  path.match(/.*schema\.rb$/) ? paths<<path : nil
+homes = ["HOME", "HOMEPATH"]
+realHome = homes.detect {|h| ENV[h] != nil}
+
+puts 'looking for schema.rb in '+ ENV[realHome]
+schema_paths =  Array.new
+Find.find(ENV[realHome]) do |path|
+  path.match(/.*schema\.rb$/) ? schema_paths<<path : nil
 end
+schema_paths.each_with_index {|path,i|  puts "#{i}. #{path}" }
+begin
+    print "\nSelect a path to the target schema: "
+end while !(id = gets.chomp.to_i).is_a?(Fixnum)
 
+data = File.open(schema_paths[id], 'r') {|f| f.read }
+schema = Schemaffold::Schema.new(data)
+  
+  begin
+    schema.check_rails_naming_conventions
+  rescue NotFollowingConventionsError => msg
+    puts msg
+  end
+  
+  puts "\nLoaded tables:"
+  schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
 
+  begin
+    print "\nSelect a table: "
+  end while !(table_id = gets.chomp.to_i).is_a?(Fixnum)
 
-def schema2scaffold (path)
-  schema = File.open(path, "r") {|f| f.read.split(/create_/) }
-  schema.shift
-  tables = schema.map { |s| s.scan(/table "(.*)"/).first }
-  tables.each_with_index{|tbl,i|  puts "#{i}. #{tbl.first}"}
-  i = [(print 'Select a Table:'), gets.rstrip.to_i][1]
-  t = tables[i].first
-  scaffold_model_fields = schema[i].scan(/t\.(\w+)\s+"([a-z0-9_]+)/).inject("") { |str, s| str << "#{s[1]}:#{s[0]} "}
-  if t==t.singularize || t==t.camelcase; puts"";puts"You should change the name of the table according with rails convention" end 
-  puts "rails generate scaffold #{t.singularize.camelize} #{scaffold_model_fields}"
-end
+  script = Schemaffold.generate_script(schema, table_id)
+  puts "\n#{script}"
 
-schema2scaffold(paths[0])
