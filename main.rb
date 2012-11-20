@@ -1,14 +1,23 @@
 require 'active_support/inflector'
 require './lib/schemaffold'
+require 'find'
 
 homes = ["HOME", "HOMEPATH"]
 realHome = homes.detect {|h| ENV[h] != nil}
-if not realHome
-   puts "Could not find home directory"
-end
 
-path = "#{ENV[realHome]}/git/gestorreservas/db/schema.rb".gsub(/\\/,'/') 
-data = File.open(path, 'r') {|f| f.read }
+puts 'looking for schema.rb in '+ ENV[realHome]
+schema_paths =  Array.new
+Find.find(ENV[realHome]) do |path|
+  path.match(/.*schema\.rb$/) ? schema_paths<<path : nil
+end
+schema_paths.each_with_index {|path,i|  puts "#{i}. #{path}" }
+begin
+    print "\nSelect a path to the target schema: "
+end while !(id = gets.chomp.to_i).is_a?(Fixnum)
+
+
+#path = "#{ENV[realHome]}/git/gestorreservas/db/schema.rb".gsub(/\\/,'/') 
+data = File.open(schema_paths[id], 'r') {|f| f.read }
 schema = Schemaffold::Schema.new(data)
   
   begin
