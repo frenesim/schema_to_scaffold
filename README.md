@@ -9,16 +9,15 @@ Usage
 The code is very simple and the usage is not friendly but almost.
 
 1. download the zip (or copy paste de code) 
-2. save main.rb in a folder.
+2. extract to folder
 3. cd folder
-4. edit the main.rb and change the path to point to your schema.rb  (generated with the rake db:schema:dump)
-5. close and save
-6. ruby main.rb 
+4. if your projects are outside your user folder: edit the main.rb and change the path to point to your schema.rb  (generated with the rake db:schema:dump)
+5. ruby main.rb 
+6. chose the path to your schema.rb
 7. chose your table
 8. copy the rails generate scaffold command
-9. paste the command in your project
 
-* Nine quick steps that will save you a lot of time
+* Eight quick steps that will save you a lot of time
 * It will give some alerts if your names are not following the rails convention.
 
 read a litle about [rails convention](http://itsignals.cascadia.com.au/?p=7) 
@@ -33,7 +32,7 @@ Want to contribute? Great!
 3. Commit your changes (`git commit -am "Added great stuff"`)
 4. Push to the branch (`git push origin my_schema_to_scafold`)
 5. Open a [Pull Request][1]
-6. Enjoy a refreshing Diet Coke and wait
+6. That's all!! 
 
 [1]: http://github.com/frenesim/schema_to_scaffold/pulls
 
