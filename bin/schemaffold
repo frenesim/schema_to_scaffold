@@ -36,7 +36,7 @@ else
 
   begin
     print "\nSelect a table: "
-  end while !(table_id = gets.chomp.to_i).is_a?(Fixnum)
+  end while schema.table_names[(table_id = gets.to_i)].nil?
 
   script = Schemaffold.generate_script(schema, table_id)
   puts "\n#{script}"
