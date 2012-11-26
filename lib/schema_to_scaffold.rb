@@ -1,4 +1,3 @@
-require 'active_support/inflector'
 require 'schema_to_scaffold/version'
 require 'schema_to_scaffold/schema'
 require 'schema_to_scaffold/table'
