@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Humberto Pinto", "João Soares"]
   gem.email         = ["h.lsp999@gmail.com", "jsoaresgeral@gmail.com"]
   gem.description   = <<-EOD
-  Command line app for windows and linux which parses a schema.rb file obtained from your rails repo or by running rake:schema:dump
+  Command line app which parses a schema.rb file obtained from your rails repo or by running rake:schema:dump
 EOD
   gem.summary       = %q{Generate rails scaffold script from a schema.rb file.}
   gem.homepage      = "http://github.com/frenesim/schema_to_scaffold"
