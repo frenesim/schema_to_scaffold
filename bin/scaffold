@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
-require 'schemaffold'
+require 'schema_to_scaffold'
 
 HELP =<<-END_OF_HELP
-Usage: schemafold [OPTION] PATH
+Usage: scaffold [OPTION] PATH
 Generate a rails scaffold script for the given schema.rb file
 PATH is the path to the schema.rb file.
 
@@ -23,7 +23,7 @@ else
     ARGV.shift
   end
 
-  schema = Schemaffold::Schema.new(data)
+  schema = SchemaToScaffold::Schema.new(data)
 
   begin
     schema.check_rails_naming_conventions
@@ -38,7 +38,7 @@ else
     print "\nSelect a table: "
   end while schema.table_names[(table_id = gets.to_i)].nil?
 
-  script = Schemaffold.generate_script(schema, table_id)
+  script = SchemaToScaffold.generate_script(schema, table_id)
   puts "\n#{script}"
   if xclip
     puts("\n(copied to your clipboard)")
