@@ -2,46 +2,37 @@
 $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'schema_to_scaffold'
 
-HELP =<<-END_OF_HELP
-Usage: scaffold [OPTION] PATH
-Generate a rails scaffold script for the given schema.rb file
-PATH is the path to the schema.rb file.
+## Argument conditions
 
-OPTIONS:
-  -x     put the rails scaffold script in your clipboard using xclip, type:
-           sudo apt-get install xclip
-         if you don't have it
+opts = SchemaToScaffold.parse_arguments(ARGV)
+ARGV.shift until ARGV.empty?
 
-END_OF_HELP
+if opts[:help] or opts[:path].nil?
+  puts SchemaToScaffold.help_msg
+  exit 0
+end
 
-xclip = ARGV.delete('-x')
-if ARGV[0].nil? or ARGV.delete('-h')
-  puts HELP
-else
-  data = File.open(ARGV[0], 'r') {|f| f.read }
-  until ARGV.empty? do
-    ARGV.shift
-  end
+begin
+  data = File.open(opts[:path], 'r') {|f| f.read }
+rescue
+  puts "Unable to open file '#{path}'"
+  exit 1
+end
 
-  schema = SchemaToScaffold::Schema.new(data)
+## Generate script from schema
 
-  begin
-    schema.check_rails_naming_conventions
-  rescue NotFollowingConventionsError => msg
-    puts msg
-  end
+schema = SchemaToScaffold::Schema.new(data)
 
-  puts "\nLoaded tables:"
-  schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
+puts "\nLoaded tables:"
+schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
 
-  begin
-    print "\nSelect a table: "
-  end while schema.table_names[(table_id = gets.to_i)].nil?
+begin
+  print "\nSelect a table: "
+end while schema.table_names[(table_id = gets.to_i)].nil?
 
-  script = SchemaToScaffold.generate_script(schema, table_id)
-  puts "\n#{script}"
-  if xclip
-    puts("\n(copied to your clipboard)")
-    exec("echo '#{script}' | xclip -selection c")
-  end
+script = SchemaToScaffold.generate_script(schema, table_id)
+puts "\n#{script}"
+if opts[:xclip]
+  puts("\n(copied to your clipboard)")
+  exec("echo '#{script}' | xclip -selection c")
 end

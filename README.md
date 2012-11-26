@@ -23,9 +23,9 @@ Just type:
 
     scaffold /path/to/your/schema.rb
 
-or if you are using linux you can use -x
+or if you are using linux you can use -c
 
-    scaffold /path/to/your/schema.rb -x
+    scaffold /path/to/your/schema.rb -c
 
 to have the script copied to your clipboard, you will need to have xclip installed(see below).
 
