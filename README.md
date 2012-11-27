@@ -1,34 +1,41 @@
-# Schema to Scaffold #
+Schema to Scaffold
+==================
 
-Generate rails scaffold pages based on a rails database schema you already have.
+After I cross with rake db:schema:dump I felt that it could do a litle more in my case. So here it is.
 
-Use your schema.rb file from `<rails_app>/db` or generated with `rake db:schema:dump`
+Usage
+-------
 
+The code is very simple and the usage is not friendly but almost.
 
-SchemaToScaffold will generate rails scaffolding scripts by table like this:
+1. download the zip (or copy paste de code) 
+2. extract to folder
+3. cd folder
+4. if your projects are outside your user folder: edit the main.rb and change the path to point to your schema.rb  (generated with the rake db:schema:dump)
+5. ruby main.rb 
+6. chose the path to your schema.rb
+7. chose your table
+8. copy the rails generate scaffold command
 
-    rails g scaffold users fname:string lname:string bdate:date email:string encrypted_password:string
+* Eight quick steps that will save you a lot of time
+* It will give some alerts if your names are not following the rails convention.
 
+read a litle about [rails convention](http://itsignals.cascadia.com.au/?p=7) 
 
-## Installation ##
+Contributing
+------------
 
-We assume you have rubygems-bundler installed, just type:
+Want to contribute? Great!
 
-    gem install schema_to_scaffold
+1. Fork it.
+2. Create a branch (`git checkout -b my_schema_to_scafold`)
+3. Commit your changes (`git commit -am "Added great stuff"`)
+4. Push to the branch (`git push origin my_schema_to_scafold`)
+5. Open a [Pull Request][1]
+6. That's all!! 
 
+[1]: http://github.com/frenesim/schema_to_scaffold/pulls
 
-## Usage ##
-
-Just type:
-
-    scaffold /path/to/your/schema.rb
-
-or if you are using linux you can use -c
-
-    scaffold /path/to/your/schema.rb -c
-
-to have the script copied to your clipboard, you will need to have xclip installed(see below).
-
-### To install xclip ###
-
-    sudo apt-get install xclip
+Colaborate
+------------
+if you want to colaborate send me an email please. 

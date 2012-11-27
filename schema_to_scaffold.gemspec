@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.name          = "schema_to_scaffold"
   gem.version       = SchemaToScaffold::VERSION
   gem.authors       = ["Humberto Pinto", "João Soares"]
-  gem.email         = ["h.lsp999@gmail.com", "jsoaresgeral@gmail.com"]
+  gem.email         = ["hlsp999@gmail.com", "jsoaresgeral@gmail.com"]
   gem.description   = <<-EOD
   Command line app which parses a schema.rb file obtained from your rails repo or by running rake:schema:dump
 EOD
