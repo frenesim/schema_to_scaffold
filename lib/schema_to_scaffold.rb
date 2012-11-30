@@ -37,6 +37,7 @@ LINUX_SAMPLE
     return GENERIC_HELP +
     case RUBY_PLATFORM
     when /win/i   then WINDOWS_HELP
+    when /mingw/i then WINDOWS_HELP
     when /linux/i then LINUX_HELP
     end
   end
