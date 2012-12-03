@@ -23,8 +23,7 @@ begin
   puts paths.schema_path
   data = File.open(paths.schema_path, 'r') {|f| f.read }
 rescue
-  #teste#  puts "Unable to open file '#{path}'"
-  puts "sair"
+  puts "Unable to open file '#{opts[:path]}'"
   exit 1
 end
 
