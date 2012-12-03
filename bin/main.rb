@@ -1,20 +1,30 @@
 $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'schema_to_scaffold'
+require 'find'
 
 ## Argument conditions
 
 opts = SchemaToScaffold.parse_arguments(ARGV)
 ARGV.shift until ARGV.empty?
 
-if opts[:help] or opts[:path].nil?
+if opts[:help]
   puts SchemaToScaffold.help_msg
   exit 0
 end
 
+if opts[:path].nil?
+  paths = SchemaToScaffold::Path.new
+  paths.search
+  paths.choose
+end
+
+
 begin
-  data = File.open(opts[:path], 'r') {|f| f.read }
+  puts paths.schema_path
+  data = File.open(paths.schema_path, 'r') {|f| f.read }
 rescue
-  puts "Unable to open file '#{path}'"
+  #teste#  puts "Unable to open file '#{path}'"
+  puts "sair"
   exit 1
 end
 

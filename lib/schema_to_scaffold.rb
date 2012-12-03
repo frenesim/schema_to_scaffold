@@ -2,6 +2,7 @@ require 'schema_to_scaffold/version'
 require 'schema_to_scaffold/schema'
 require 'schema_to_scaffold/table'
 require 'schema_to_scaffold/attribute'
+require 'schema_to_scaffold/path'
 
 module SchemaToScaffold
   extend self
