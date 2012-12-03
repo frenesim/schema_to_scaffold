@@ -5,7 +5,6 @@ require 'find'
 ## Argument conditions
 
 opts = SchemaToScaffold.parse_arguments(ARGV)
-ARGV.shift until ARGV.empty?
 
 if opts[:help]
   puts SchemaToScaffold.help_msg
@@ -20,9 +19,10 @@ if opts[:path].nil?
 end
 
 begin
-  data = File.open(paths.schema_path, 'r') {|f| f.read }
+  path = opts[:path] || paths.schema_path
+  data = File.open(path, 'r') {|f| f.read }
 rescue
-  puts "Unable to open file '#{opts[:path]}'"
+  puts "Unable to open file '#{path}'"
   exit 1
 end
 

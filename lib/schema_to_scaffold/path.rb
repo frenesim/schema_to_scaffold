@@ -8,12 +8,10 @@ module SchemaToScaffold
     attr_reader :schema_path
     
     def initialize
-      @schema_path = :schema_path
       @paths = PATH_NAMES.detect {|h| ENV[h] != nil}
     end
     
     def search
-      puts @paths
       puts 'looking for schema.rb in '+ ENV[@paths]
       @schema_paths =  Array.new
       Find.find(ENV[@paths]) do |path|
