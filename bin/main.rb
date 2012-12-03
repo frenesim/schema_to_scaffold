@@ -12,15 +12,14 @@ if opts[:help]
   exit 0
 end
 
+## looking for schema.rb in user directory
 if opts[:path].nil?
   paths = SchemaToScaffold::Path.new
   paths.search
   paths.choose
 end
 
-
 begin
-  puts paths.schema_path
   data = File.open(paths.schema_path, 'r') {|f| f.read }
 rescue
   puts "Unable to open file '#{opts[:path]}'"
