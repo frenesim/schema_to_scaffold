@@ -15,7 +15,7 @@ module SchemaToScaffold
       puts 'looking for schema.rb in '+ ENV[@paths]
       @schema_paths =  Array.new
       Find.find(ENV[@paths]) do |path|
-        @schema_paths<<path if path.match(/.*schema\.rb$/)
+        @schema_paths<<path if path[/schema\.rb$/]
       end
     end
     
