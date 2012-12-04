@@ -5,26 +5,28 @@ module SchemaToScaffold
   
   class Path
     
-    attr_reader :schema_path
-    
     def initialize
       @paths = PATH_NAMES.detect {|h| ENV[h] != nil}
     end
     
+    ##
+    # Will search for schema.rb in the user directory
     def search
       puts 'looking for schema.rb in '+ ENV[@paths]
       @schema_paths =  Array.new
       Find.find(ENV[@paths]) do |path|
-        path.match(/.*schema\.rb$/) ? @schema_paths<<path : nil
+        @schema_paths<<path if path.match(/.*schema\.rb$/)
       end
     end
     
+    ##
+    # Return the chosen path
     def choose
       @schema_paths.each_with_index {|path,i|  puts "#{i}. #{path}" }
       begin
           print "\nSelect a path to the target schema: "
-      end while !(id = gets.chomp.to_i).is_a?(Fixnum)
-      @schema_path = @schema_paths[id]
+      end while (id = gets.chomp.to_i).nil?
+      @schema_paths[id]
     end
     
     

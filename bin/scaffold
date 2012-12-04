@@ -1,19 +1,28 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'schema_to_scaffold'
+require 'find'
 
 ## Argument conditions
 
 opts = SchemaToScaffold.parse_arguments(ARGV)
-ARGV.shift until ARGV.empty?
+ARGV.clear
 
-if opts[:help] or opts[:path].nil?
+if opts[:help]
   puts SchemaToScaffold.help_msg
   exit 0
 end
 
+## looking for schema.rb in user directory
+if opts[:path].nil?
+  paths = SchemaToScaffold::Path.new
+  paths.search
+end
+
+## Opening file
 begin
-  data = File.open(opts[:path], 'r') {|f| f.read }
+  path = opts[:path] || paths.choose
+  data = File.open(path, 'r') {|f| f.read }
 rescue
   puts "Unable to open file '#{path}'"
   exit 1
@@ -23,11 +32,16 @@ end
 
 schema = SchemaToScaffold::Schema.new(data)
 
-puts "\nLoaded tables:"
-schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
-
 begin
+  if schema.table_names.empty? then 
+  	raise "Could not find tables in '#{path}'" 
+  end
+  puts "\nLoaded tables:"
+  schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
   print "\nSelect a table: "
+rescue
+  puts "Could not find tables in '#{path}'"
+  exit 1
 end while schema.table_names[(table_id = gets.to_i)].nil?
 
 script = SchemaToScaffold.generate_script(schema, table_id)
