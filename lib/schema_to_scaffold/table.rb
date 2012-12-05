@@ -12,7 +12,8 @@ module SchemaToScaffold
     end
 
     def self.parse(table_data)
-      name = table_data.match(/table "(.+)"/).captures.first; 
+      return unless name = table_data[/table "(.+)"/]
+      name = $1
       atts = table_data.lines.to_a.select {|line| line =~ /t\.\w+/ }.map {|att| Attribute.parse att }
       Table.new(name, atts)
     end

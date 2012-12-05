@@ -21,13 +21,12 @@ We assume you have rubygems-bundler installed, just type:
 
 Just type:
 
-    scaffold /path/to/your/schema.rb
+    scaffold [options]
 
-or if you are using linux you can use -c
-
-    scaffold /path/to/your/schema.rb -c
-
-to have the script copied to your clipboard, you will need to have xclip installed(see below).
+\[OPTIONS\]
+ -h					Displays help.
+ -p <path>			It specifies a file ex: -p /path/to/your/schema.rb
+ -c					Works only on linux. Will copy the script copied to your clipboard.	You will need to have xclip installed(see below).
 
 ### To install xclip ###
 

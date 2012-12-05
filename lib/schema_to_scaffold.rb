@@ -2,6 +2,7 @@ require 'schema_to_scaffold/version'
 require 'schema_to_scaffold/schema'
 require 'schema_to_scaffold/table'
 require 'schema_to_scaffold/attribute'
+require 'schema_to_scaffold/path'
 
 module SchemaToScaffold
   extend self
@@ -9,9 +10,11 @@ module SchemaToScaffold
   ## Usage help text to print in all platforms
 
   GENERIC_HELP = <<-END_OF_HELP
-Usage: scaffold [OPTION] PATH
-Generate a rails scaffold script for the given schema.rb file
-PATH is the path to the schema.rb file.
+  
+Usage: scaffold [options] 
+Generate a rails scaffold script for a given schema.rb
+ -h             Displays help.
+ -p <path>      It specifies a path to a file
 
 END_OF_HELP
 
@@ -19,18 +22,20 @@ END_OF_HELP
   ## Windows specific usage help text
 
   WINDOWS_HELP = <<-WINDOWS_SAMPLE
-Example: scaffold C:\Users\John\ Doe\Documents\schema.rb
-
+Examples:
+scaffold 
+or
+scaffold -p C:\\Users\\JohnDoe\\Documents\\schema.rb
 WINDOWS_SAMPLE
 
   ## Linux specific usage help text
 
   LINUX_HELP = <<-LINUX_SAMPLE
-    OPTIONS:
-      -x     put the rails scaffold script in your clipboard using xclip which should be installed
-
-Example: scaffold ~/work/rails/my_app/db/schema.rb
-
+     -c             Works only on linux. Will copy the script copied to your clipboard. You will need to have xclip installed(see below).
+Examples:
+scaffold
+or 
+scaffold -x -p ~/work/rails/my_app/db/schema.rb
 LINUX_SAMPLE
 
   def help_msg
@@ -46,10 +51,11 @@ LINUX_SAMPLE
   # Parses ARGV and returns a hash of options.
 
   def parse_arguments(argv)
+    argv.index("-p") ? path = argv[argv.index("-p")+1] : nil
     {
-      xclip: argv.delete('-c'),                                # check for xclip flag
-      help: argv.delete('-h'),                                 # check for help flag
-      path: argv[0],                                           # get path to file, must be the last for argv[0] to work
+      xclip: argv.delete('-c'),        # check for xclip flag
+      help:  argv.delete('-h'),        # check for help flag
+      path:  path         # get path to file(s)
     }
   end
 
