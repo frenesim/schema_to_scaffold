@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'schema_to_scaffold'
-require 'find'
 
 ## Argument conditions
 
@@ -14,14 +13,16 @@ if opts[:help]
 end
 
 ## looking for schema.rb in user directory
-if opts[:path].nil?
+
+unless opts[:path].match(/\.rb$/)
   paths = SchemaToScaffold::Path.new
-  paths.search
+  paths.search_in opts[:path]
+  path = paths.choose
 end
 
 ## Opening file
+path||=opts[:path]
 begin
-  path = opts[:path] || paths.choose
   data = File.open(path, 'r') {|f| f.read }
 rescue
   puts "Unable to open file '#{path}'"

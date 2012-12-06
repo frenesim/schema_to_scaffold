@@ -6,16 +6,17 @@ module SchemaToScaffold
   class Path
     
     def initialize
-      @paths = PATH_NAMES.detect {|h| ENV[h] != nil}
+      @search_path = ENV[PATH_NAMES.detect {|h| ENV[h] != nil}]
     end
     
     ##
     # Will search for schema.rb in the user directory
-    def search
-      puts 'looking for schema.rb in '+ ENV[@paths]
-      @schema_paths =  Array.new
-      Find.find(ENV[@paths]) do |path|
-        @schema_paths<<path if path[/schema\.rb$/]
+    def search_in(*path)
+      @search_path = path.first if path.any?
+      puts "looking for schema.rb in #{@search_path}"
+      @schema_paths = Array.new
+      Find.find(@search_path) do |s_p|
+        @schema_paths<<s_p if s_p[/schema\.rb$/]
       end
     end
     
