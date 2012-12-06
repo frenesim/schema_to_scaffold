@@ -12,7 +12,7 @@ SchemaToScaffold will generate rails scaffolding scripts by table like this:
 
 ## Installation ##
 
-We assume you have rubygems-bundler installed, just type:
+Assuming that you have rubygems-bundler installed, just type:
 
     gem install schema_to_scaffold
 
@@ -25,7 +25,8 @@ Just type:
     
 	[options]
     -h				Displays help.
-	-p <path>		It specifies a file ex: -p /path/to/your/schema.rb
+	-p <path>		It specifies a search path or a path to a file 
+					ex: -p /user/path  or  /path/to/your/schema.rb
 	-c				Works only on linux. Will copy the script copied to your clipboard.
 					You will need to have xclip installed(see below).
 

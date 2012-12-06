@@ -14,7 +14,7 @@ module SchemaToScaffold
 Usage: scaffold [options] 
 Generate a rails scaffold script for a given schema.rb
  -h             Displays help.
- -p <path>      It specifies a path to a file
+ -p <path>      It specifies a path to a folder or to a file
 
 END_OF_HELP
 
@@ -24,7 +24,7 @@ END_OF_HELP
   WINDOWS_HELP = <<-WINDOWS_SAMPLE
 Examples:
 scaffold 
-or
+scaffold -p C:\\Users\\JohnDoe
 scaffold -p C:\\Users\\JohnDoe\\Documents\\schema.rb
 WINDOWS_SAMPLE
 
@@ -34,8 +34,8 @@ WINDOWS_SAMPLE
      -c             Works only on linux. Will copy the script copied to your clipboard. You will need to have xclip installed(see below).
 Examples:
 scaffold
-or 
-scaffold -x -p ~/work/rails/my_app/db/schema.rb
+scaffold -c -p ~/work/rails/my_app
+scaffold -c -p ~/work/rails/my_app/db/schema.rb
 LINUX_SAMPLE
 
   def help_msg
@@ -51,12 +51,23 @@ LINUX_SAMPLE
   # Parses ARGV and returns a hash of options.
 
   def parse_arguments(argv)
-    argv.index("-p") ? path = argv[argv.index("-p")+1] : nil
-    {
-      xclip: argv.delete('-c'),        # check for xclip flag
-      help:  argv.delete('-h'),        # check for help flag
-      path:  path         # get path to file(s)
-    }
+    if argv_index = argv.index("-p")
+      path = argv.delete_at(argv_index+1)
+      argv.delete('-p')
+    end
+    args = {
+            xclip: argv.delete('-c'),        # check for xclip flag
+            help:  argv.delete('-h'),        # check for help flag
+            path:  path       # get path to file(s)
+           }
+    unless argv.empty?
+      puts "\n------\nWrong set of arguments.\n------\n" 
+      puts help_msg
+      exit
+    else
+      args
+    end
+
   end
 
   ##

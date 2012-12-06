@@ -14,7 +14,7 @@ end
 
 ## looking for schema.rb in user directory
 
-unless opts[:path].match(/\.rb$/)
+unless opts[:path].to_s.match(/\.rb$/)
   paths = SchemaToScaffold::Path.new
   paths.search_in opts[:path]
   path = paths.choose
@@ -25,7 +25,7 @@ path||=opts[:path]
 begin
   data = File.open(path, 'r') {|f| f.read }
 rescue
-  puts "Unable to open file '#{path}'"
+  puts "\nUnable to open file '#{path}'"
   exit 1
 end
 
