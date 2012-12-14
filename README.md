@@ -1,5 +1,7 @@
 # Schema to Scaffold
 
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/frenesim/schema_to_scaffold)
+
 Generate rails scaffold pages based on a rails database schema you already have.
 
 Use your schema.rb file from `<rails_app>/db` or generated with `rake db:schema:dump`
@@ -39,14 +41,14 @@ Just type:
 	Want to contribute? Great!
 
 1. Fork it.
-2. Create a branch (`git checkout -b my_schema_to_scafold`)
+2. Create a branch (`git checkout -b my_schema_to_scaffold`)
 3. Commit your changes (`git commit -am "Added great stuff"`)
-4. Push to the branch (`git push origin my_schema_to_scafold`)
+4. Push to the branch (`git push origin my_schema_to_scaffold`)
 5. Open a [Pull Request][1]
 6. That's all!! 
 
 [1]: http://github.com/frenesim/schema_to_scaffold/pulls
 
-### Colaborate
+### Collaborate
 
-	if you want to colaborate send me an email please. 
+	If you want to collaborate send me an email please. 
