@@ -15,8 +15,8 @@ end
 ## looking for schema.rb in user directory
 
 unless opts[:path].to_s.match(/\.rb$/)
-  paths = SchemaToScaffold::Path.new
-  paths.search_in opts[:path]
+  paths = SchemaToScaffold::Path.new(opts[:path])
+  paths.search_rb
   path = paths.choose
 end
 

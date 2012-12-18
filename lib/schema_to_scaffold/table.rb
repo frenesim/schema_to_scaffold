@@ -1,4 +1,7 @@
 module SchemaToScaffold
+  
+  ##
+  # fetch table names and convert them to a scaffold syntax
   class Table
 
     attr_reader :attributes, :name
