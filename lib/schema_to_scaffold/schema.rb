@@ -25,7 +25,7 @@ module SchemaToScaffold
     end
 
     def self.parse(data)
-      data.split(/create_/)[1..-1].map {|table_data| Table.parse table_data }
+      data.split(/^\s*create_/)[1..-1].map {|table_data| Table.parse table_data }
     end
   end
 end
