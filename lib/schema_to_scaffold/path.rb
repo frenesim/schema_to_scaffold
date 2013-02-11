@@ -29,7 +29,7 @@ module SchemaToScaffold
       check_directory
       @schema_paths = Array.new
       Find.find(@search_path) do |s_p|
-        @schema_paths<<s_p if s_p[/schema\S*\.rb$/]
+        @schema_paths<<s_p if s_p[/schema[^\/]*.rb$/]
       end
     end
     
