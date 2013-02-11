@@ -18,5 +18,5 @@ EOD
   gem.executables           = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.require_paths         = ["lib"]
   gem.post_install_message  = "Thanks for installing!"
-  gem.licenses = ['MIT']
+  gem.licenses              = ['MIT']
 end
