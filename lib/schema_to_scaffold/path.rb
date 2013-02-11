@@ -9,7 +9,8 @@ module SchemaToScaffold
   class Path
     
     def initialize(path)
-      @search_path = ENV[PATH_NAMES.detect {|home| ENV[home] != nil}]
+      #@search_path = ENV[PATH_NAMES.detect {|home| ENV[home] != nil}]
+      @search_path = Dir.pwd
       @path = path
     end
     
@@ -35,6 +36,10 @@ module SchemaToScaffold
     ##
     # Return the chosen path
     def choose
+      if @schema_paths.empty?
+        puts "\nSorry there is none /schema\S*\.rb$/ in the directory #{@search_path}"
+        exit
+      end
       @schema_paths.each_with_index {|path,indx|  puts "#{indx}. #{path}" }
       begin
           print "\nSelect a path to the target schema: "
