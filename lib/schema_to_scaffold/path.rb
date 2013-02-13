@@ -1,19 +1,18 @@
 require 'find'
 module SchemaToScaffold
   
-  PATH_NAMES = ["HOME", "HOMEPATH", "USERPROFILE"]
-  
   ##
   # Deal with the path argument
-  
+
   class Path
     
     def initialize(path)
-      #@search_path = ENV[PATH_NAMES.detect {|home| ENV[home] != nil}]
       @search_path = Dir.pwd
       @path = path
     end
-    
+
+    ##
+    # Validate if a given path leads to a directory
     def check_directory
       unless File.directory?(@search_path)
         puts "\nSorry #{@search_path} is not a valid directory!"
@@ -23,7 +22,7 @@ module SchemaToScaffold
     end
     
     ##
-    # Will search for schema.rb in the user directory
+    # Will search for /schema[^\/]*.rb$/ in the current directory
     def search_rb
       @search_path = @path.to_s unless @path.nil?
       check_directory
@@ -37,7 +36,7 @@ module SchemaToScaffold
     # Return the chosen path
     def choose
       if @schema_paths.empty?
-        puts "\nSorry there is none /schema\S*\.rb$/ in the directory #{@search_path}"
+        puts "\nSorry there is none /schema[^\/]*.rb$/ in the directory #{@search_path}"
         exit
       end
       @schema_paths.each_with_index {|path,indx|  puts "#{indx}. #{path}" }
@@ -46,7 +45,6 @@ module SchemaToScaffold
       end while @schema_paths[(id = gets.to_i)].nil?
       @schema_paths[id]
     end
-    
     
   end
   

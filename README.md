@@ -5,7 +5,8 @@
 Generate rails scaffold pages based on a rails database schema you already have.
 
 Use your schema.rb file from `<rails_app>/db` or generated with `rake db:schema:dump`
-
+You can rename schema.rb to schema_your_fav_name.rb that I will find it to. This will prevent schema.rb from being
+overwritten when one run rake db:migrate.
 
 SchemaToScaffold will generate rails scaffolding scripts by table like this:
 
