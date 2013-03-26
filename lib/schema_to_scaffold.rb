@@ -56,10 +56,10 @@ LINUX_SAMPLE
       argv.delete('-p')
     end
     args = {
-            xclip: argv.delete('-c'),        # check for xclip flag
-            help:  argv.delete('-h'),        # check for help flag
-            path:  path       # get path to file(s)
-           }
+      :xclip => argv.delete('-c'),        # check for xclip flag
+      :help =>  argv.delete('-h'),        # check for help flag
+      :path =>  path                      # get path to file(s)
+    }
     unless argv.empty?
       puts "\n------\nWrong set of arguments.\n------\n" 
       puts help_msg
