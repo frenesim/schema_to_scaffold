@@ -2,7 +2,13 @@
 
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/frenesim/schema_to_scaffold)
 
-Generate rails scaffold pages based on a rails database schema you already have.
+Generate rails commands strings based on a rails database schema you already have.
+Commands available are:
+-rails generate scaffold
+-rails generate factory_girl:model
+
+Important:
+This gem will not run code for you. It will only generate a string for you to copy and paste
 
 Use your schema.rb file from `<rails_app>/db` or generated with `rake db:schema:dump`
 You can rename schema.rb to schema_your_fav_name.rb that I will find it to. This will prevent schema.rb from being
