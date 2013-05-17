@@ -73,9 +73,9 @@ LINUX_SAMPLE
   ##
   # Generates the rails scaffold script
 
-  def self.generate_script(schema, table=nil)
+  def self.generate_script_scaffold(schema, table=nil,target)
     schema = Schema.new(schema) unless schema.is_a? Schema
     return schema.to_script if table.nil?
-    schema.table(table).to_script
+    schema.table(table).to_script target
   end
 end

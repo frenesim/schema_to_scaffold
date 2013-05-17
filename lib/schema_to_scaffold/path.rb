@@ -15,7 +15,7 @@ module SchemaToScaffold
     # Validate if a given path leads to a directory
     def check_directory
       unless File.directory?(@search_path)
-        puts "\nSorry #{@search_path} is not a valid directory!"
+        puts "\nSorry #{@search_path} is not a valid directory!\nHere is an example:\nscaffold -p /home/foo/bar"
         exit
       end
       puts "\nLooking for schema.rb in #{@search_path}"

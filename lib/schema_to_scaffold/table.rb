@@ -10,8 +10,8 @@ module SchemaToScaffold
       @name, @attributes = name, attributes
     end
 
-    def to_script
-      "rails g scaffold #{name} #{attributes.map(&:to_script).join(' ')}"
+    def to_script(target)
+      "rails generate #{target} #{name} #{attributes.map(&:to_script).join(' ')}"
     end
 
     def self.parse(table_data)

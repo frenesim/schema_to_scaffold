@@ -29,7 +29,7 @@ rescue
   exit 1
 end
 
-## Generate script from schema
+## Generate scripts from schema
 
 schema = SchemaToScaffold::Schema.new(data)
 
@@ -45,8 +45,13 @@ rescue
   exit 1
 end while schema.table_names[(table_id = gets.to_i)].nil?
 
-script = SchemaToScaffold.generate_script(schema, table_id)
-puts "\n#{script}"
+script_scaffold = SchemaToScaffold.generate_script_scaffold(schema, table_id,"scaffold")
+puts "\nScript for rails scaffold\n#{script_scaffold}"
+
+script_factory_girl = SchemaToScaffold.generate_script_scaffold(schema, table_id,"factory_girl:model")
+puts "\nScript for factory girl\n#{script_factory_girl}"
+
+
 if opts[:xclip]
   puts("\n(copied to your clipboard)")
   exec("echo '#{script}' | xclip -selection c")
