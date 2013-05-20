@@ -21,20 +21,11 @@ module SchemaToScaffold
       puts "\nLooking for schema.rb in #{@search_path}"
     end
     
-    ##
-    # Will search for /schema[^\/]*.rb$/ in the current directory
-    def search_rb
-      @search_path = @path.to_s unless @path.nil?
-      check_directory
-      @schema_paths = Array.new
-      Find.find(@search_path) do |s_p|
-        @schema_paths<<s_p if s_p[/schema[^\/]*.rb$/]
-      end
-    end
-    
+
     ##
     # Return the chosen path
     def choose
+      search_rb
       if @schema_paths.empty?
         puts "\nSorry there is none /schema[^\/]*.rb$/ in the directory #{@search_path}"
         exit
@@ -45,7 +36,19 @@ module SchemaToScaffold
       end while @schema_paths[(id = gets.to_i)].nil?
       @schema_paths[id]
     end
-    
+
+    private
+    ##
+    # Will search for /schema[^\/]*.rb$/ in the current directory
+    def search_rb
+      @search_path = @path.to_s unless @path.nil?
+      check_directory
+      @schema_paths = Array.new
+      Find.find(@search_path) do |s_p|
+        @schema_paths<<s_p if s_p[/schema[^\/]*.rb$/]
+      end
+    end
+
   end
   
 end
