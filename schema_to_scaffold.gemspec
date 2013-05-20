@@ -19,4 +19,6 @@ EOD
   gem.require_paths         = ["lib"]
   gem.post_install_message  = "Thanks for installing!"
   gem.licenses              = ['MIT']
+
+  gem.add_dependency('activesupport', '>= 3.2.1')
 end
