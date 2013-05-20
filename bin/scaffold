@@ -13,12 +13,8 @@ if opts[:help]
 end
 
 ## looking for /schema\S*.rb$/ in user directory
-
-unless opts[:path].to_s.match(/\.rb$/)
-  paths = SchemaToScaffold::Path.new(opts[:path])
-  paths.search_rb
-  path = paths.choose
-end
+paths = SchemaToScaffold::Path.new(opts[:path])
+path = paths.choose unless opts[:path].to_s.match(/\.rb$/)
 
 ## Opening file
 path||=opts[:path]
@@ -34,9 +30,7 @@ end
 schema = SchemaToScaffold::Schema.new(data)
 
 begin
-  if schema.table_names.empty? then 
-  	raise "Could not find tables in '#{path}'" 
-  end
+  raise if schema.table_names.empty?
   puts "\nLoaded tables:"
   schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
   print "\nSelect a table: "
@@ -45,10 +39,10 @@ rescue
   exit 1
 end while schema.table_names[(table_id = gets.to_i)].nil?
 
-script_scaffold = SchemaToScaffold.generate_script_scaffold(schema, table_id,"scaffold")
+script_scaffold = SchemaToScaffold.generate_script(schema, table_id,"scaffold")
 puts "\nScript for rails scaffold\n#{script_scaffold}"
 
-script_factory_girl = SchemaToScaffold.generate_script_scaffold(schema, table_id,"factory_girl:model")
+script_factory_girl = SchemaToScaffold.generate_script(schema, table_id,"factory_girl:model")
 puts "\nScript for factory girl\n#{script_factory_girl}"
 
 
