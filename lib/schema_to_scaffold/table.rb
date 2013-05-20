@@ -1,5 +1,5 @@
 module SchemaToScaffold
-  
+  require 'active_support/inflector'
   ##
   # fetch table names and convert them to a scaffold syntax
   class Table
@@ -11,7 +11,8 @@ module SchemaToScaffold
     end
 
     def to_script(target)
-      "rails generate #{target} #{name} #{attributes.map(&:to_script).join(' ')}"
+      return "rails generate #{target} #{name} #{attributes.map(&:to_script).join(' ')}" if target == "scaffold"
+      return "rails generate #{target} #{name.camelize.singularize} #{attributes.map(&:to_script).join(' ')}" if target == "factory_girl:model"
     end
 
     def self.parse(table_data)
