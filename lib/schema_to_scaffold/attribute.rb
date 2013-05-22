@@ -8,7 +8,7 @@ module SchemaToScaffold
     end
 
     def to_script
-      "#{name}:#{type}"
+      "#{name}:#{type}" unless ["created_at","updated_at"].include? name
     end
 
     def self.parse(attribute)
