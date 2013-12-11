@@ -12,7 +12,10 @@ module SchemaToScaffold
     end
 
     def self.parse(attribute)
-      Attribute.new(*attribute.match(/t\.(\w+)\s+"(\w+)"/).captures)
+      match = attribute.match(/t\.(\w+)\s+"(\w+)"/)
+      if match
+        Attribute.new(*match.captures)
+      end
     end
 
 
