@@ -18,7 +18,7 @@ SchemaToScaffold will generate rails scaffolding scripts by table like this:
 
     rails g scaffold users fname:string lname:string bdate:date email:string encrypted_password:string
 
-It's possible to generate for all your tables at once if you prefer just choose '*' when choosing the table.
+It's possible to generate scripts for all your tables at once. Just choose '*' when choosing the table.
 
 ## Installation
 
