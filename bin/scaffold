@@ -33,17 +33,36 @@ begin
   raise if schema.table_names.empty?
   puts "\nLoaded tables:"
   schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
+
+  puts "\n*. All Tables"
+  
   print "\nSelect a table: "
+  
 rescue
   puts "Could not find tables in '#{path}'"
   exit 1
-end while schema.table_names[(table_id = gets.to_i)].nil?
+end 
 
-script_scaffold = SchemaToScaffold.generate_script(schema, table_id,"scaffold")
-puts "\nScript for rails scaffold\n#{script_scaffold}"
+result = gets.strip
 
-script_factory_girl = SchemaToScaffold.generate_script(schema, table_id,"factory_girl:model")
-puts "\nScript for factory girl\n#{script_factory_girl}"
+if result == "*"
+  tables = (0..schema.table_names.count-1).map{|i|i}
+else
+  tables = [result.to_i]
+end
+
+script_scaffold = []
+script_factory_girl = []
+tables.each do |table_id|
+  script_scaffold << SchemaToScaffold.generate_script(schema, table_id,"scaffold")
+  script_factory_girl << SchemaToScaffold.generate_script(schema, table_id,"factory_girl:model")
+end
+
+puts "\nScript for rails scaffold"
+puts script_scaffold.join("\n")
+
+puts "\nScript for factory girl"
+puts script_factory_girl.join("\n")
 
 
 if opts[:xclip]
