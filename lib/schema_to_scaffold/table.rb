@@ -12,7 +12,7 @@ module SchemaToScaffold
     end
 
     def to_script(target)
-      return "rails generate #{target} #{modelize name} #{attributes.map(&:to_script).reject{|x| x.nil? || x.empty?}.join(' ')}" if target == "scaffold"
+      return "rails generate #{target} #{modelize name} #{attributes.map(&:to_script).reject{|x| x.nil? || x.empty?}.join(' ')} --no-migration" if target == "scaffold"
       return "rails generate #{target} #{modelize name} #{attributes.map(&:to_script).reject{|x| x.nil? || x.empty?}.join(' ')}" if target == "factory_girl:model"
     end
 
