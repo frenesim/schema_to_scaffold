@@ -14,7 +14,9 @@ module SchemaToScaffold
 Usage: scaffold [options] 
 Generate a rails scaffold script for a given schema.rb
  -h             Displays help.
- -p <path>      It specifies a path to a folder or to a file
+ -p <path>      It specifies a path to a folder or to a file.
+ -c             Will copy the script to your clipboard. Requires xclip be installed on Linux.
+ -f             Generates a factory_girl:model rather than a full scaffold.
 
 END_OF_HELP
 
@@ -25,13 +27,12 @@ END_OF_HELP
 Examples:
 scaffold 
 scaffold -p C:\\Users\\JohnDoe
-scaffold -p C:\\Users\\JohnDoe\\Documents\\schema.rb
+scaffold -c -p C:\\Users\\JohnDoe\\Documents\\schema.rb
 WINDOWS_SAMPLE
 
   ## Linux specific usage help text
 
   LINUX_HELP = <<-LINUX_SAMPLE
-     -c             Works only on linux. Will copy the script copied to your clipboard. You will need to have xclip installed(see below).
 Examples:
 scaffold
 scaffold -c -p ~/work/rails/my_app
@@ -41,9 +42,10 @@ LINUX_SAMPLE
   def help_msg
     return GENERIC_HELP +
     case RUBY_PLATFORM
-    when /win/i   then WINDOWS_HELP
-    when /mingw/i then WINDOWS_HELP
-    when /linux/i then LINUX_HELP
+    when /darwin/i then LINUX_HELP
+    when /linux/i  then LINUX_HELP
+    when /mingw/i  then WINDOWS_HELP
+    when /win/i    then WINDOWS_HELP
     end
   end
 
@@ -56,7 +58,8 @@ LINUX_SAMPLE
       argv.delete('-p')
     end
     args = {
-      :xclip => argv.delete('-c'),        # check for xclip flag
+      :clipboard => argv.delete('-c'),        # check for clipboard flag
+      :factory_girl => argv.delete('-f'), # factory_girl instead of scaffold
       :help =>  argv.delete('-h'),        # check for help flag
       :path =>  path                      # get path to file(s)
     }
