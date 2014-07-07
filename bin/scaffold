@@ -51,21 +51,24 @@ else
   tables = [result.to_i]
 end
 
-script_scaffold = []
-script_factory_girl = []
-tables.each do |table_id|
-  script_scaffold << SchemaToScaffold.generate_script(schema, table_id,"scaffold")
-  script_factory_girl << SchemaToScaffold.generate_script(schema, table_id,"factory_girl:model")
+script = []
+
+if opts[:factory_girl]
+  tables.each { |table_id| script << SchemaToScaffold.generate_script(schema, table_id, "factory_girl:model") }
+  puts "\nScript for factory girl:\n\n"
+  puts script.join("")
+else
+  tables.each { |table_id| script << SchemaToScaffold.generate_script(schema, table_id, "scaffold") }
+  puts "\nScript for rails scaffold:\n\n"
+  puts script.join("")
 end
 
-puts "\nScript for rails scaffold"
-puts script_scaffold.join("\n")
-
-puts "\nScript for factory girl"
-puts script_factory_girl.join("\n")
-
-
-if opts[:xclip]
+if opts[:clipboard]
   puts("\n(copied to your clipboard)")
-  exec("echo '#{script}' | xclip -selection c")
+  case RUBY_PLATFORM
+    when /darwin/i then exec("echo '#{script.join("")}' | tr -d '\n' | pbcopy")
+    when /linux/i  then exec("echo '#{script.join("")}' | tr -d '\n' | xclip -selection c")
+    when /mingw/i  then exec("echo '#{script.join("")}' | clip")
+    when /win/i    then exec("echo '#{script.join("")}' | clip")
+  end
 end
