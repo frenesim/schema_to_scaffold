@@ -17,6 +17,7 @@ Generate a rails scaffold script for a given schema.rb
  -p <path>      It specifies a path to a folder or to a file.
  -c             Will copy the script to your clipboard. Requires xclip be installed on Linux.
  -f             Generates a factory_girl:model rather than a full scaffold.
+ -m             Add migration (use if your schema comes from a different database)
 
 END_OF_HELP
 
@@ -58,8 +59,9 @@ LINUX_SAMPLE
       argv.delete('-p')
     end
     args = {
-      :clipboard => argv.delete('-c'),        # check for clipboard flag
+      :clipboard => argv.delete('-c'),    # check for clipboard flag
       :factory_girl => argv.delete('-f'), # factory_girl instead of scaffold
+      :migration => argv.delete('-m'),   # generate migrations
       :help =>  argv.delete('-h'),        # check for help flag
       :path =>  path                      # get path to file(s)
     }
