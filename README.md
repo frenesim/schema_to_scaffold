@@ -1,18 +1,18 @@
 # Schema to Scaffold
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/frenesim/schema_to_scaffold)
+[![Code Climate](https://codeclimate.com/github/frenesim/schema_to_scaffold.png)](https://codeclimate.com/github/frenesim/schema_to_scaffold)
 
-This Gem generates Rails command strings based on a Rails database schema you already have. Unlike traditional migrations, which modify the database as they generate Rails scaffolding code, this Gem reads the database and generates the Rails code which matches your database's existing columns.
+This Gem generates Rails command strings based on a Rails database schema you already have. Unlike traditional migrations, which modify the database as they generate Rails scaffolding code, this Gem reads the schema for your database and generates the Rails code which matches your database's existing columns.
 
-This Gem does not modify anything; it simply prints a string which will then invoke the Rails generators, and optionally copies the string to your clipboard. Generated string commands available are:
+This Gem does not modify anything; it simply prints a string which you can then use to invoke the Rails generators, and optionally copies the string to your clipboard. Generated string commands available are:
 ```bash
 rails generate scaffold <model_name> <field[:type]>
 rails generate factory_girl:model <ModelName> <field[:type]>
 ```
 
-Use your schema.rb file from `<rails_app>/db` or generated with `rake db:schema:dump`. You can optionally rename schema.rb to `schema_your_fav_name.rb` and it will still be found. Unique schema file names will prevent schema.rb from being overwritten when you run `rake db:migrate`.
+Use your schema.rb file from `<rails_app>/db` or generated with `rake db:schema:dump`. You can optionally rename schema.rb to `schema_your_fav_name.rb` and it will still be found. Unique schema file names will prevent schema.rb from being overwritten if you use migrations and run `rake db:migrate`.
 
-Schema to Scaffold will generate rails scaffolding scripts by table like this:
+Schema to Scaffold output looks like this:
 
     rails generate scaffold users fname:string lname:string bdate:date email:string encrypted_password:string
 
@@ -33,15 +33,17 @@ Generate a rails scaffold script for a given schema.rb
  -p <path>      It specifies a path to a folder or to a file.
  -c             Will copy the script to your clipboard. Requires xclip be installed on Linux.
  -f             Generates a factory_girl:model rather than a full scaffold.
+ -m             Add migration (use if your schema comes from a different database)
 
 Examples:
 scaffold
 scaffold -c -p ~/work/rails/my_app
 scaffold -c -p ~/work/rails/my_app/db/schema.rb
+
 ```
 ## Generators
 
-Since this gem will let you invoke Rails generators for your scaffolding, make sure you've configured your generators with your preferred settings before start. There's a good [Rails Guide](http://guides.rubyonrails.org/generators.html) and you can invoke `rails g scaffold -h` to see options.
+Since this gem will let you invoke Rails generators for your scaffolding, make sure you've configured your generators with your preferred settings before you start. There's a good [Rails Guide](http://guides.rubyonrails.org/generators.html) and you can invoke `rails g scaffold -h` to see options.
 
 Generator options are configured in `config/application.rb`. Here is an example setting:
 
@@ -51,6 +53,7 @@ module YourApplication
     config.generators do |g|
       g.hidden_namespaces << :test_unit << :erb # Hide unwanted generators
       g.template_engine :slim # Select template engine
+      g.helper false # Don't create view helpers
       g.test_framework  :rspec, :view_specs => false
       g.integration_tool :rspec
       g.fixture_replacement :factory_girl # Choose between fixtures and factories
@@ -62,6 +65,10 @@ module YourApplication
 end
 ```
 If you configure factory_girl as your fixture_replacement here, there is no need to invoke factory_girl separately with the `scaffold -f` command.
+
+## Migrations
+
+Schema to Scaffold is set up by default to support creating scaffolds for your existing database, presuming that you have generated schema.rb with `rake db:schema:dump`. Therefore, no migrations are necessary, because the database already contains the desired table. If instead you are using a schema.rb that was generated from a database other than current development database, you can use the `-m` option to build a generator command that includes migrations.
 
 ## To install xclip on Linux
 
