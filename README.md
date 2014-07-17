@@ -16,7 +16,7 @@ Schema to Scaffold output looks like this:
 
     rails generate scaffold users fname:string lname:string bdate:date email:string encrypted_password:string
 
-It's possible to generate scripts for all your tables at once. Just choose `*` when choosing the table.
+It's possible to generate scripts for all your tables at once. Just enter `*` when selecting the table.
 
 ## Installation
 
@@ -43,7 +43,7 @@ scaffold -c -p ~/work/rails/my_app/db/schema.rb
 ```
 ## Generators
 
-Since this gem will let you invoke Rails generators for your scaffolding, make sure you've configured your generators with your preferred settings before you start. There's a good [Rails Guide](http://guides.rubyonrails.org/generators.html) and you can invoke `rails g scaffold -h` to see options.
+Since this gem assists you in invoking Rails generators for your scaffolding, make sure you've configured your generators with your preferred settings before you start. There's a good [Rails Guide](http://guides.rubyonrails.org/generators.html) and you can invoke `rails g scaffold -h` to see options.
 
 Generator options are configured in `config/application.rb`. Here is an example setting:
 
@@ -89,4 +89,4 @@ Schema to Scaffold is set up by default to support creating scaffolds for your e
 
 ## Collaborate
 
-	If you want to collaborate send me an email please. 
+	If you want to collaborate, please send me an email, or just create an issue or pull request. 
