@@ -11,9 +11,13 @@ module SchemaToScaffold
       @name, @attributes = name, attributes
     end
 
-    def to_script(target)
+    def to_script(target,migragion_flag)
       attributes_list = attributes.map(&:to_script).reject{|x| x.nil? || x.empty?}.join(' ')
-      return "rails generate #{target} #{modelize name} #{attributes_list}"
+      script = []
+      script << "rails generate #{target} #{modelize name} #{attributes_list}"
+      script << " --no-migration" unless migragion_flag
+      script << "\n\n"
+      return script
     end
 
     def self.parse(table_data)

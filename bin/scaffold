@@ -53,8 +53,8 @@ end
 
 script = []
 target = opts[:factory_girl] ? "factory_girl:model" : "scaffold"
-tables.each { |table_id| script << SchemaToScaffold.generate_script(schema, table_id, target) }
-script << " --no-migration" unless opts[:migration] || opts[:factory_girl]
+migragion_flag = opts[:migration] || opts[:factory_girl]
+tables.each { |table_id| script << SchemaToScaffold.generate_script(schema, table_id, target, migragion_flag) }
 output = script.join("")
 puts "\nScript for #{target}:\n\n"
 puts output
