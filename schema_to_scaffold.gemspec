@@ -20,5 +20,5 @@ EOD
   gem.post_install_message  = "Thanks for installing!"
   gem.licenses              = ['MIT']
 
-  gem.add_dependency('activesupport-inflector', '~> 0.1.0')
+  gem.add_dependency('activesupport', '>= 3.2.1')
 end
