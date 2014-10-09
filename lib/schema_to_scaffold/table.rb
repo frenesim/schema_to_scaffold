@@ -11,8 +11,15 @@ module SchemaToScaffold
       @name, @attributes = name, attributes
     end
 
-    def to_script(target,migragion_flag)
-      attributes_list = attributes.map(&:to_script).reject{|x| x.nil? || x.empty?}.join(' ')
+    def to_script(target, migragion_flag)
+      begin
+        attributes_list = attributes.map(&:to_script).reject { |x| x.nil? || x.empty? }.join(' ')
+      rescue Exception => e
+        puts "\n ---------------------------------------------"
+        puts e.message
+        puts "Table \n\n\n #{self.inspect} \n\n\n"
+        puts "\n ---------------------------------------------"
+      end
       script = []
       script << "rails generate #{target} #{modelize name} #{attributes_list}"
       script << " --no-migration" unless migragion_flag
@@ -23,7 +30,7 @@ module SchemaToScaffold
     def self.parse(table_data)
       return unless name = table_data[/table "([^"]+?)"/]
       name = $1
-      atts = table_data.lines.to_a.select {|line| line =~ /t\.\w+/ }.map {|att| Attribute.parse att }
+      atts = table_data.lines.to_a.select { |line| line =~ /t\.\w+/ }.map { |att| Attribute.parse att }
       Table.new(name, atts)
     end
 
