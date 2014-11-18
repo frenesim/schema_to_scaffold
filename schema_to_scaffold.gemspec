@@ -6,8 +6,8 @@ require 'schema_to_scaffold/version'
 Gem::Specification.new do |gem|
   gem.name          = "schema_to_scaffold"
   gem.version       = SchemaToScaffold::VERSION
-  gem.authors       = ["João Soares", "Humberto Pinto"] 
-  gem.email         = ["jsoaresgeral@gmail.com", "hlsp999@gmail.com"] 
+  gem.authors       = ["João Soares", "Humberto Pinto"]
+  gem.email         = ["jsoaresgeral@gmail.com", "hlsp999@gmail.com"]
   gem.description   = <<-EOD
   Command line app which parses a schema.rb file obtained from your rails repo or by running rake:schema:dump
 EOD
@@ -21,4 +21,5 @@ EOD
   gem.licenses              = ['MIT']
 
   gem.add_dependency('activesupport', '>= 3.2.1')
+  gem.add_development_dependency('pry', '>= 0.10.0')
 end
