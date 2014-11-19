@@ -3,7 +3,7 @@ module SchemaToScaffold
 
     attr_reader :name, :type
 
-    def initialize(type, name)
+    def initialize(name, type)
       @name, @type = name, type
     end
 
@@ -14,7 +14,9 @@ module SchemaToScaffold
     def self.parse(attribute)
       match = attribute.match(/t\.(\w+)\s+"(\w+)"/)
       if match
-        Attribute.new(*match.captures)
+        name = match.captures[1].sub(/_id$/,'')
+        type = $&.nil? ? match.captures[0] : "references"
+        Attribute.new(name,type)
       end
     end
 
