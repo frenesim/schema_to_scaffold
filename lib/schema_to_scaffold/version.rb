@@ -1,6 +1,6 @@
 module SchemaToScaffold
   MAJOR = 0
-  MINOR = 5
-  REVISION = 4
+  MINOR = 6
+  REVISION = 0
   VERSION = [MAJOR, MINOR, REVISION].join('.')
 end
