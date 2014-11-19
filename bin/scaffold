@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'schema_to_scaffold'
-
+require 'pry'
 ## Argument conditions
 
 opts = SchemaToScaffold.parse_arguments(ARGV)
@@ -34,21 +34,29 @@ begin
   puts "\nLoaded tables:"
   schema.table_names.each_with_index {|name,i|  puts "#{i}. #{name}" }
 
-  puts "\n*. All Tables"
-  
+  puts "\nOptions are:\n4 for table 4; (4..6) for table 4 to 6; [4,6] for tables 4 and 6; * for all Tables"
+
   print "\nSelect a table: "
-  
+
 rescue
   puts "Could not find tables in '#{path}'"
   exit 1
-end 
+end
 
 result = gets.strip
-
-if result == "*"
-  tables = (0..schema.table_names.count-1).map{|i|i}
-else
-  tables = [result.to_i]
+begin
+  case result
+    when "*"
+      tables = (0..schema.table_names.count-1).map{|i|i}
+    when /^\d/
+      tables = [result.to_i]
+    else
+      tables = eval(result).to_a.map{|i|i}
+  end
+  raise if tables.empty?
+rescue Exception => e
+  puts "Not a valid input, \nOptions are:\n4 for table 4; (4..6) for table 4 to 6; [4,6] for tables 4 and 6; * for all Tables"
+  exit 1
 end
 
 script = []
