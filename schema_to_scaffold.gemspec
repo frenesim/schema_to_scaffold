@@ -21,6 +21,6 @@ EOD
   gem.licenses              = ['MIT']
   gem.required_ruby_version = '>= 1.9.3'
 
-  gem.add_dependency('activesupport', '>= 3.2.1')
+  gem.add_runtime_dependency('activesupport', '>= 3.2.1')
   gem.add_development_dependency('pry', '~> 0.10', '>= 0.10.0')
 end

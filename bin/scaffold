@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 require 'schema_to_scaffold'
-require 'pry'
 ## Argument conditions
 
 opts = SchemaToScaffold.parse_arguments(ARGV)
