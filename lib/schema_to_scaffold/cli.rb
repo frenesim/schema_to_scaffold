@@ -18,7 +18,7 @@ module SchemaToScaffold
       ## Opening file
       path ||= opts[:path]
       begin
-        data = File.open(path, 'r') {|f| f.read }
+        data = File.open(path, 'r') { |f| f.read }
       rescue
         puts "\nUnable to open file '#{path}'"
         exit 1
@@ -45,11 +45,11 @@ module SchemaToScaffold
       begin
         case result
         when "*"
-          tables = (0..schema.table_names.count-1).map{|i|i}
+          tables = (0..schema.table_names.count-1).map { |i| i }
         when /^\d/
           tables = [result.to_i]
         else
-          tables = eval(result).to_a.map{|i|i}
+          tables = eval(result).to_a.map { |i| i }
         end
 
         raise if tables.empty?
@@ -61,7 +61,9 @@ module SchemaToScaffold
       script = []
       target = opts[:factory_girl] ? "factory_girl:model" : "scaffold"
       migration_flag = opts[:migration] || opts[:factory_girl]
-      tables.each { |table_id| script << SchemaToScaffold.generate_script(schema, table_id, target, migration_flag) }
+      tables.each do |table_id|
+        script << SchemaToScaffold.generate_script(schema, table_id, target, migration_flag)
+      end
       output = script.join("")
       puts "\nScript for #{target}:\n\n"
       puts output
