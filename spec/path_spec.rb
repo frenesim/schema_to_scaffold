@@ -12,12 +12,17 @@ module SchemaToScaffold
         }.to output(/Sorry path_spec\.rb is not a valid directory!/).to_stdout
       end
 
-      it "prints message when given path is an directory" do
-        path = Path.new(File.expand_path(File.dirname(__FILE__)) + '/support')
-        allow(path).to receive(:gets).and_return(0)
-        expect {
-          path.choose
-        }.to output(/Select a path to the target schema/).to_stdout
+      context "needs user input" do
+        let(:path) { Path.new(File.expand_path(File.dirname(__FILE__)) + '/support') }
+        before do
+          allow(STDIN).to receive(:gets) { "0" }
+        end
+
+        it "prints message when given path is an directory" do
+          expect {
+            path.choose
+          }.to output(/Select a path to the target schema/).to_stdout
+        end
       end
 
       it "prints message when given path is an directory but no schema is found" do

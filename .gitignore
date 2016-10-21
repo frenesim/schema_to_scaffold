@@ -18,3 +18,4 @@ tmp
 .project
 /schema.rb
 .idea
+spec/examples.txt

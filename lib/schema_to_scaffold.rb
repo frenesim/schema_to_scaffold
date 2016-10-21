@@ -3,6 +3,7 @@ require 'schema_to_scaffold/schema'
 require 'schema_to_scaffold/table'
 require 'schema_to_scaffold/attribute'
 require 'schema_to_scaffold/path'
+require 'schema_to_scaffold/cli'
 
 module SchemaToScaffold
   extend self

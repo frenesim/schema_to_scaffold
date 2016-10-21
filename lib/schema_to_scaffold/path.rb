@@ -33,7 +33,7 @@ module SchemaToScaffold
       @schema_paths.each_with_index {|path,indx|  puts "#{indx}. #{path}" }
       begin
           print "\nSelect a path to the target schema: "
-      end while @schema_paths[(id = gets.to_i)].nil?
+      end while @schema_paths[(id = STDIN.gets.to_i)].nil?
       @schema_paths[id]
     end
 
