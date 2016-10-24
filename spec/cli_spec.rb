@@ -78,5 +78,38 @@ module SchemaToScaffold
         end
       end
     end
+
+    describe ".parse_arguments" do
+      it "handles wrong arguments" do
+        expect {
+          begin
+            SchemaToScaffold::CLI.parse_arguments(["--help"])
+          rescue SystemExit
+          end
+        }.to output(/Wrong set of arguments/).to_stdout
+      end
+
+      context "handles arguments" do
+        it "help argument" do
+          expect(CLI.parse_arguments(["-h"])).to eq({clipboard: nil, factory_girl: nil, migration: nil, help: "-h", path: nil})
+        end
+
+        it "path argument" do
+          expect(CLI.parse_arguments(["-p", "/some/path"])).to eq({clipboard: nil, factory_girl: nil, migration: nil, help: nil, path: "/some/path"})
+        end
+
+        it "clipboard argument" do
+          expect(CLI.parse_arguments(["-c"])).to eq({clipboard: "-c", factory_girl: nil, migration: nil, help: nil, path: nil})
+        end
+
+        it "factory girl argument" do
+          expect(CLI.parse_arguments(["-f"])).to eq({clipboard: nil, factory_girl: "-f", migration: nil, help: nil, path: nil})
+        end
+
+        it "migration argument" do
+          expect(CLI.parse_arguments(["-m"])).to eq({clipboard: nil, factory_girl: nil, migration: "-m", help: nil, path: nil})
+        end
+      end
+    end
   end
 end
