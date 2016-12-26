@@ -1,3 +1,4 @@
+require'pry'
 module SchemaToScaffold
   RSpec.describe Path do
 
@@ -18,21 +19,21 @@ module SchemaToScaffold
           allow(STDIN).to receive(:gets) { "0" }
         end
 
-        it "prints message when given path is an directory" do
+        it "prints message when given path is a directory" do
           expect {
             path.choose
           }.to output(/Select a path to the target schema/).to_stdout
         end
-      end
+       end
 
-      it "prints message when given path is an directory but no schema is found" do
+      it "prints message when given path is a directory but no schema is found" do
         path = Path.new(File.expand_path(File.dirname(__FILE__)) + '/support/no_schema')
         expect {
           begin
             path.choose
           rescue SystemExit
           end
-        }.to output(/Sorry there is none/).to_stdout
+        }.to output(/There is no/).to_stdout
       end
     end
   end

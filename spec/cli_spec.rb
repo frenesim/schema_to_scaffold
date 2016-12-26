@@ -66,6 +66,7 @@ module SchemaToScaffold
         before do
           allow(STDIN).to receive(:gets).once { "0" }
           expect_any_instance_of(Kernel).to receive(:exec).with("echo 'rails generate scaffold User email:string encrypted_password:string reset_password_token:string reset_password_sent_at:datetime remember_created_at:datetime sign_in_count:integer current_sign_in_at:datetime last_sign_in_at:datetime current_sign_in_ip:string last_sign_in_ip:string name:string role:integer --no-migration\n\n' | tr -d '\n' | pbcopy")
+          expect_any_instance_of(Clipboard).to receive(:platform).and_return("/darwin/i")
         end
 
         it "prints copied to your clipboard message" do
