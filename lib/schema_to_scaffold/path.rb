@@ -15,7 +15,7 @@ module SchemaToScaffold
     def choose
       search_rb
       if @schema_paths.empty?
-        puts "\nSorry there is none /schema[^\/]*.rb$/ in the directory #{@search_path}"
+        puts "\nThere is no /schema[^\/]*.rb$/ in the directory #{@search_path}"
         exit
       end
 
