@@ -15,7 +15,6 @@ module SchemaToScaffold
 
       context "needs user input" do
         let(:path) { Path.new(File.expand_path(File.dirname(__FILE__)) + '/support') }
-        let(:invalid_path) { Path.new(File.expand_path(File.dirname(__FILE__)) + '/support/no_path') }
         before do
           allow(STDIN).to receive(:gets) { "0" }
         end
@@ -25,16 +24,10 @@ module SchemaToScaffold
             path.choose
           }.to output(/Select a path to the target schema/).to_stdout
         end
-        it "prints an error message when given path is not a directory" do
-          expect {
-            invalid_path.choose
-          }.to output(/Select a pathsdfsdf to the target schema/).to_stdout
-        end
-      end
+       end
 
-      it "prints message when given path is an directory but no schema is found" do
+      it "prints message when given path is a directory but no schema is found" do
         path = Path.new(File.expand_path(File.dirname(__FILE__)) + '/support/no_schema')
-        allow_any_instance_of(Path).to receive(:check_directory).and_return(true)
         expect {
           begin
             path.choose
