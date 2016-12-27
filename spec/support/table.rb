@@ -13,4 +13,5 @@ create_table "users", force: :cascade do |t|
   t.datetime "updated_at"
   t.string   "name"
   t.integer  "role"
+  t.index ["basket_id"], name: "index_orders_on_basket_id", using: :btree
 end

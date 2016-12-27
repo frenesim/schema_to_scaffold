@@ -30,8 +30,13 @@ module SchemaToScaffold
     def self.parse(table_data)
       return unless name = table_data[/table "([^"]+?)"/]
       name = $1
-      atts = table_data.lines.to_a.select { |line| line =~ /t\.\w+/ }.map { |att| Attribute.parse(att) }
-      Table.new(name, atts)
+      table_fields = table_fields_of(table_data)
+      Table.new(name, table_fields)
+    end
+
+    private
+    def self.table_fields_of(table_data)
+      table_data.lines.to_a.select { |line| line =~ /t\.(?!index)\w+/ }.map { |att| Attribute.parse(att) }
     end
 
     private

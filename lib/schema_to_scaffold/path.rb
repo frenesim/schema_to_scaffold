@@ -6,48 +6,48 @@ module SchemaToScaffold
   class Path
 
     def initialize(path)
-      @search_path = Dir.pwd
-      @path = path
+      @path = path || Dir.pwd
     end
 
     ##
     # Return the chosen path
     def choose
-      search_rb
-      if @schema_paths.empty?
-        puts "\nThere is no /schema[^\/]*.rb$/ in the directory #{@search_path}"
+      validate_path
+      search_paths_list = search_paths
+      if search_paths_list.empty?
+        puts "\nThere is no /schema[^\/]*.rb$/ in the directory #{@path}"
         exit
       end
 
-      @schema_paths.each_with_index {|path,indx|  puts "#{indx}. #{path}" }
+      search_paths_list.each_with_index {|path,indx|  puts "#{indx}. #{path}" }
 
       begin
         print "\nSelect a path to the target schema: "
-      end while @schema_paths[(id = STDIN.gets.to_i)].nil?
+      end while search_paths_list[(id = STDIN.gets.to_i)].nil?
 
-      @schema_paths[id]
+      search_paths_list[id]
     end
 
     private
     ##
     # Validate if a given path leads to a directory
-    def check_directory
-      unless File.directory?(@search_path)
-        puts "\nSorry #{@search_path} is not a valid directory!\nHere is an example:\nscaffold -p /home/foo/bar"
+    def validate_path
+      if File.directory?(@path.to_s)
+        puts "\nLooking for schema.rb in #{@path}"
+      else
+        puts "\nSorry #{@path} is not a valid directory!\nHere is an example:\nscaffold -p /home/foo/bar"
         exit
       end
-      puts "\nLooking for schema.rb in #{@search_path}"
     end
 
     ##
     # Will search for /schema[^\/]*.rb$/ in the current directory
-    def search_rb
-      @search_path = @path.to_s unless @path.nil?
-      check_directory
-      @schema_paths = Array.new
-      Find.find(@search_path) do |s_p|
-        @schema_paths << s_p if s_p[/schema[^\/]*.rb$/]
+    def search_paths
+      result = []
+      Find.find(@path) do |s_p|
+        result << s_p if s_p[/schema[^\/]*.rb$/]
       end
+      result
     end
 
   end
