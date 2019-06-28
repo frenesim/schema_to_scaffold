@@ -28,7 +28,7 @@ module SchemaToScaffold
       case id
       when Symbol then table(id.to_s)
       when String then tables[table_names.index(id)]
-      when Fixnum then tables[id]
+      when Integer then tables[id]
       else nil
       end
     end
