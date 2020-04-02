@@ -24,6 +24,9 @@ module SchemaToScaffold
       rescue
         puts "\nUnable to open file '#{path}'"
         exit 1
+      rescue Interrupt => e
+        puts "User interrupted"
+        exit 1
       end
 
       ## Generate scripts from schema
@@ -46,6 +49,9 @@ module SchemaToScaffold
         raise if tables.empty?
       rescue
         puts "Not a valid input. #{TABLE_OPTIONS}"
+        exit 1
+      rescue Interrupt => e
+        puts "Interrupt detected #{e}"
         exit 1
       end
 
