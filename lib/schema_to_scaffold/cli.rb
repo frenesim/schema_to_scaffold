@@ -25,7 +25,6 @@ module SchemaToScaffold
         puts "\nUnable to open file '#{path}'"
         exit 1
       rescue Interrupt => e
-        puts "User interrupted"
         exit 1
       end
 
@@ -51,7 +50,6 @@ module SchemaToScaffold
         puts "Not a valid input. #{TABLE_OPTIONS}"
         exit 1
       rescue Interrupt => e
-        puts "Interrupt detected #{e}"
         exit 1
       end
 
