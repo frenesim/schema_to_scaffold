@@ -23,7 +23,11 @@ module SchemaToScaffold
 
       begin
         print "\nSelect a path to the target schema: "
-      end while search_paths_list[(id = STDIN.gets.to_i)].nil?
+        while search_paths_list[(id = STDIN.gets.to_i)].nil?; end
+      rescue Interrupt => e
+        exit 1
+      end 
+
 
       search_paths_list[id]
     end
