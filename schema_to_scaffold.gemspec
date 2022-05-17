@@ -21,7 +21,7 @@ EOD
   gem.required_ruby_version = '>= 1.9.3'
 
   gem.add_runtime_dependency('activesupport', '>= 3.2.1')
-  gem.add_development_dependency('pry', '~> 0.10', '>= 0.10.0')
+  gem.add_development_dependency('pry')
   gem.add_development_dependency('byebug')
   gem.add_development_dependency('rspec')
   gem.add_development_dependency('simplecov')
