@@ -19,3 +19,4 @@ tmp
 /schema.rb
 .idea
 spec/examples.txt
+.byebug_history

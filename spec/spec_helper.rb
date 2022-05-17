@@ -10,6 +10,7 @@ require "simplecov"
 SimpleCov.start 'test_frameworks'
 
 require "schema_to_scaffold"
+require "byebug"
 
 # Given that it is always loaded, you are encouraged to keep this file as
 # light-weight as possible. Requiring heavyweight dependencies from this file
