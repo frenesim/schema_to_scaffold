@@ -54,7 +54,7 @@ module SchemaToScaffold
       end
 
       script = []
-      target = opts[:factory_girl] ? "factory_girl:model" : "scaffold"
+      target = opts[:factory_bot] ? "factory_bot:model" : "scaffold"
       migration_flag = opts[:migration] ? true : false
 
       tables.each do |table_id|
@@ -80,7 +80,7 @@ module SchemaToScaffold
 
       args = {
         clipboard: argv.delete('-c'),    # check for clipboard flag
-        factory_girl: argv.delete('-f'), # factory_girl instead of scaffold
+        factory_bot: argv.delete('-f'), # factory_bot instead of scaffold
         migration: argv.delete('-m'),   # generate migrations
         help: argv.delete('-h'),        # check for help flag
         path: path                      # get path to file(s)
@@ -89,7 +89,7 @@ module SchemaToScaffold
       if argv.empty?
         args
       else
-        puts "\n------\nWrong set of arguments.\n------\n" 
+        puts "\n------\nWrong set of arguments.\n------\n"
         puts Help.message
         exit
       end

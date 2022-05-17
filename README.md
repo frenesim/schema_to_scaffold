@@ -7,7 +7,7 @@ This Gem generates Rails command strings based on a Rails database schema you al
 This Gem does not modify anything; it simply prints a string which you can then use to invoke the Rails generators, and optionally copies the string to your clipboard. Generated string commands available are:
 ```bash
 rails generate scaffold <model_name> <field[:type]>
-rails generate factory_girl:model <ModelName> <field[:type]>
+rails generate factory_bot:model <ModelName> <field[:type]>
 ```
 
 Use your schema.rb file from `<rails_app>/db` or generated with `rake db:schema:dump`. You can optionally rename schema.rb to `schema_your_fav_name.rb` and it will still be found. Unique schema file names will prevent schema.rb from being overwritten if you use migrations and run `rake db:migrate`.
@@ -27,12 +27,12 @@ Assuming that you have rubygems-bundler installed, just type:
 ## Usage
 
 ```
-Usage: scaffold [options] 
+Usage: scaffold [options]
 Generate a rails scaffold script for a given schema.rb
  -h             Displays help.
  -p <path>      It specifies a path to a folder or to a file.
  -c             Will copy the script to your clipboard. Requires xclip be installed on Linux.
- -f             Generates a factory_girl:model rather than a full scaffold.
+ -f             Generates a factory_bot:model rather than a full scaffold.
  -m             Add migration (use if your schema comes from a different database)
 
 Examples:
@@ -56,15 +56,15 @@ module YourApplication
       g.helper false # Don't create view helpers
       g.test_framework  :rspec, :view_specs => false
       g.integration_tool :rspec
-      g.fixture_replacement :factory_girl # Choose between fixtures and factories
-      g.factory_girl dir: 'spec/factories'
+      g.fixture_replacement :factory_bot # Choose between fixtures and factories
+      g.factory_bot dir: 'spec/factories'
       g.javascript_engine :js # Disable coffeescript
       g.scaffold_controller "responders_controller" # from responders gem
     end
   end
 end
 ```
-If you configure factory_girl as your fixture_replacement here, there is no need to invoke factory_girl separately with the `scaffold -f` command.
+If you configure factory_bot as your fixture_replacement here, there is no need to invoke factory_bot separately with the `scaffold -f` command.
 
 ## Migrations
 
@@ -83,10 +83,10 @@ Schema to Scaffold is set up by default to support creating scaffolds for your e
 3. Commit your changes (`git commit -am "Added great stuff"`)
 4. Push to the branch (`git push origin my_schema_to_scaffold`)
 5. Open a [Pull Request][1]
-6. That's all!! 
+6. That's all!!
 
 [1]: http://github.com/frenesim/schema_to_scaffold/pulls
 
 ## Collaborate
 
-	If you want to collaborate, please send me an email, or just create an issue or pull request. 
+	If you want to collaborate, please send me an email, or just create an issue or pull request.

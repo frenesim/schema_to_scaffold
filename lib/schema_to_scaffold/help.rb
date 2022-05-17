@@ -8,7 +8,7 @@ Generate a rails scaffold script for a given schema.rb
  -h             Displays help.
  -p <path>      It specifies a path to a folder or to a file.
  -c             Will copy the script to your clipboard. Requires xclip be installed on Linux.
- -f             Generates a factory_girl:model rather than a full scaffold.
+ -f             Generates a factory_bot:model rather than a full scaffold.
  -m             Add migration (use if your schema comes from a different database)
 
 END_OF_HELP
