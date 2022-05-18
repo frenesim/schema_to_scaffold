@@ -20,9 +20,8 @@ EOD
   gem.licenses              = ['MIT']
   gem.required_ruby_version = '>= 1.9.3'
 
-  gem.add_runtime_dependency('activesupport', '>= 7.0.1')
-  gem.add_development_dependency('pry')
-  gem.add_development_dependency('byebug')
-  gem.add_development_dependency('rspec')
-  gem.add_development_dependency('simplecov')
+  gem.add_runtime_dependency('activesupport', '~> 7')
+  gem.add_development_dependency('byebug', '~> 11')
+  gem.add_development_dependency('rspec', '~> 3')
+  gem.add_development_dependency('simplecov', '~> 0.21')
 end
