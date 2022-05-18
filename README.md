@@ -26,24 +26,28 @@ Assuming that you have rubygems-bundler installed, just type:
 
 ## Usage
 
+```bash
+$ scaffold [options]
 ```
-Usage: scaffold [options]
+
 Generate a rails scaffold script for a given schema.rb
+```
  -h             Displays help.
  -p <path>      It specifies a path to a folder or to a file.
  -c             Will copy the script to your clipboard. Requires xclip be installed on Linux.
  -f             Generates a factory_bot:model rather than a full scaffold.
  -m             Add migration (use if your schema comes from a different database)
-
-Examples:
-scaffold
-scaffold -c -p ~/work/rails/my_app
-scaffold -c -p ~/work/rails/my_app/db/schema.rb
-
 ```
+Examples:
+```bash
+$ scaffold
+$ scaffold -c -p ~/work/rails/my_app
+$ scaffold -c -p ~/work/rails/my_app/db/schema.rb
+```
+
 ## Generators
 
-Since this gem assists you in invoking Rails generators for your scaffolding, make sure you've configured your generators with your preferred settings before you start. There's a good [Rails Guide](http://guides.rubyonrails.org/generators.html) and you can invoke `rails g scaffold -h` to see options.
+Since this gem assists you in invoking Rails generators for your scaffolding, make sure you've configured your generators with your preferred settings before you start. There's a good [Rails Guide](http://guides.rubyonrails.org/generators.html) and you can invoke `$ rails g scaffold -h` to see options.
 
 Generator options are configured in `config/application.rb`. Here is an example setting:
 
@@ -72,7 +76,7 @@ Schema to Scaffold is set up by default to support creating scaffolds for your e
 
 ## To install xclip on Linux
 
-    sudo apt-get install xclip
+    `apt-get install xclip`
 
 ## Contributing
 
